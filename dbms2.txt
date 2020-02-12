@@ -1,0 +1,57 @@
+create table branch(
+branchname varchar2(20),
+branchcity varchar2(20),
+assets number(10,2),
+primary key(branchname)
+);
+
+create table account(
+accno number(15),
+branchname varchar2(20),
+balance number(8,2),
+primary key(accno),
+foreign key(branchname) references branch(branchname)
+);
+create table customer(
+customername varchar2(15),
+customerstreet varchar2(30),
+city varchar2(20),
+primary key(customername)
+);
+create table depositor(
+customername varchar2(15),
+accno number(15),
+primary key(customername,accno),
+foreign key(customername) references customer(customername),
+foreign key(accno) references account(accno)
+);
+create table loan(
+loannumber number(10),
+branchname varchar2(20),
+amount number(10),
+primary key(loannumber),
+foreign key(branchname) references branch(branchname));
+create table borrower(
+customername varchar2(15),
+loannumber number(10),
+primary key(customername),
+foreign key(loannumber) references loan(loannumber)
+);
+insert into branch values('branch5','city5','50000000.4');
+commit;
+select * from branch;
+insert into account values('10008','branch5','500000.5');
+commit;
+select * from account;
+insert into customer values('sanjeev','street4','city4');
+commit;
+select * from customer;
+insert into depositor values('sanjeev','10008');
+commit;
+select * from depositor;
+insert into loan values('400000','branch4','600000');
+commit;
+select * from loan;
+insert into borrower values('sanjeev',400000);
+commit;
+select * from borrower;
