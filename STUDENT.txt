@@ -1,0 +1,76 @@
+create table student1(
+reg_no number(10),
+name varchar2(20),
+major varchar2(15),
+bdate date,
+primary key(reg_no)
+);
+create table course1(
+course_id number(10),
+cname varchar2(20),
+dept varchar2(15),
+primary key(course_id)
+);
+create table text(
+isbn number(10),
+book_title varchar2(20),
+publisher varchar2(20),
+author varchar2(15),
+primary key(isbn)
+);
+create table adoption(
+course_id number(10),
+sem number(10),
+ISBN NUMBER(10),
+foreign key(course_id)references course1(course_id)on delete cascade,
+foreign key(isbn)references text(isbn)on delete cascade
+);
+DROP TABLE ADOPTION;
+create table enroll1(
+reg_no number(10),
+course_id number(10),
+sem number(10),
+marks number(5),
+foreign key(reg_no)references student1(reg_no)on delete cascade,
+foreign key(course_id)references course1(course_id)on delete cascade
+);
+insert into student1 values('1','kiran','ise','02-jan-84');
+insert into student1 values('2','divya','cse','12-oct-85');
+insert into student1 values('3','babu','mech','23-sep-82');
+insert into student1 values('4','john','ece','21-feb-84');
+insert into student1 values('5','asha','cse','07-oct-79');
+commit;
+select * from student1;
+
+insert into course1 values('11','dcs','cse');
+insert into course1 values('22','ada','cse');
+insert into course1 values('33','cn','ec');
+insert into course1 values('44','td','mech');
+insert into course1 values('55','mup','ec');
+commit;
+select * from course1;
+insert into text values('7722','VB','PHI','HOLZNER');
+insert into text values('1144','DS WITH C','SAPNA','NANDAGOPAL');
+
+insert into text values('4400','C PROG','PHI','BALAGURU');
+
+insert into text values('5566','CN','PHI','TENENBAUM');
+insert into text values('3388','MP','TATA','BREY');
+COMMIT;
+SELECT * FROM TEXT;
+INSERT INTO ADOPTION VALUES('11','3','7722');
+INSERT INTO ADOPTION VALUES('22','4','7722');
+INSERT INTO ADOPTION VALUES('11','5','4400');
+INSERT INTO ADOPTION VALUES('11','8','5566');
+INSERT INTO ADOPTION VALUES('55','4','3388');
+INSERT INTO ADOPTION VALUES('44','4','5566');
+INSERT INTO ADOPTION VALUES('44','7','3388');
+COMMIT;
+SELECT * FROM ADOPTION;
+INSERT INTO ENROLL1 VALUES('01','22','5','76');
+INSERT INTO ENROLL1 VALUES('01','11','3','90');
+INSERT INTO ENROLL1 VALUES('02','33','6','55');
+INSERT INTO ENROLL1 VALUES('03','22','5','75');
+INSERT INTO ENROLL1 VALUES('05','44','5','75');
+COMMIT;
+SELECT * FROM ENROLL1;
